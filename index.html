@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>VORNQIS RESEARCH & INSIGHTS — Day 2 Training & Knowledge Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07111f;--panel:#0d1b2d;--panel2:#12243a;--text:#f4f7fb;--muted:#9fb0c5;
+  --accent:#38bdf8;--accent2:#8b5cf6;--green:#22c55e;--red:#ef4444;--border:#20344d;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:
+radial-gradient(circle at 10% 0%,rgba(56,189,248,.12),transparent 32%),
+radial-gradient(circle at 90% 10%,rgba(139,92,246,.12),transparent 30%),var(--bg);color:var(--text)}
+button{font:inherit}
+.topbar{position:fixed;z-index:50;top:0;left:0;right:0;height:74px;display:flex;align-items:center;justify-content:space-between;
+padding:0 28px;background:rgba(7,17,31,.86);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+
+/* Heading-style brand title */
+.brand{
+  font-family:'Poppins',Inter,ui-sans-serif,system-ui;
+  font-weight:800;
+  font-size:22px;
+  line-height:1.1;
+  letter-spacing:.2px;
+  color:var(--text);
+}
+.brand .line1{display:block;font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+.brand .line2{display:block;font-size:23px;font-weight:800}
+.brand .line2 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.nav{display:flex;gap:8px}.nav button,.control{border:1px solid var(--border);background:var(--panel);color:var(--text);padding:9px 13px;border-radius:10px;cursor:pointer}
+.nav button.active{background:linear-gradient(135deg,var(--accent2),var(--accent));border-color:transparent}
+main{padding-top:74px}.section{min-height:100vh;padding:56px 7vw;display:flex;align-items:center;justify-content:center}
+.deck{width:min(1100px,100%)} .slide{display:none;min-height:72vh;align-items:center}.slide.active{display:flex;animation:fade .35s ease}
+@keyframes fade{from{opacity:.2;transform:translateY(8px)}to{opacity:1;transform:none}}
+.hero{background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(139,92,246,.13));border:1px solid var(--border);
+border-radius:28px;padding:56px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+.kicker{text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-size:13px;font-weight:800}
+h1{font-family:'Poppins',Inter,ui-sans-serif;font-size:clamp(38px,6vw,72px);line-height:1.02;margin:14px 0 18px}
+h2{font-family:'Poppins',Inter,ui-sans-serif;font-size:clamp(30px,4vw,48px);margin:0 0 18px} h3{margin:0 0 10px}
+p,li{color:var(--muted);font-size:17px;line-height:1.65}.subtitle{font-size:20px;max-width:800px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:26px}
+.card{background:rgba(13,27,45,.85);border:1px solid var(--border);border-radius:18px;padding:24px}
+.card strong{color:var(--text)} .icon{font-size:30px;margin-bottom:10px}
+.controls{display:flex;justify-content:space-between;align-items:center;margin-top:25px}
+.progress{height:6px;background:#1a2b40;border-radius:99px;overflow:hidden;flex:1;margin:0 18px}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));width:0}
+.pill{display:inline-flex;padding:7px 11px;border:1px solid var(--border);border-radius:99px;color:var(--muted);font-size:13px}
+table{width:100%;border-collapse:collapse;margin-top:18px;background:rgba(0,0,0,.12);border-radius:14px;overflow:hidden}
+th,td{padding:13px;border-bottom:1px solid var(--border);text-align:left;color:var(--muted)}th{color:var(--text)}
+.quiz-wrap{width:min(980px,100%)} .quiz-card{background:rgba(13,27,45,.94);border:1px solid var(--border);border-radius:24px;padding:34px}
+.qtop{display:flex;justify-content:space-between;gap:15px;align-items:center}.qnum{color:var(--accent);font-weight:800}
+.options{display:grid;gap:12px;margin-top:25px}.option{width:100%;text-align:left;padding:17px 18px;border-radius:14px;border:1px solid var(--border);
+background:#0b1728;color:var(--text);cursor:pointer;transition:.2s}.option:hover{border-color:var(--accent);transform:translateY(-1px)}
+.option.selected{border-color:var(--accent);background:rgba(56,189,248,.10)}
+.option.correct{border-color:var(--green);background:rgba(34,197,94,.12)}
+.option.wrong{border-color:var(--red);background:rgba(239,68,68,.12)}
+.feedback{min-height:30px;margin-top:16px;font-weight:700}.feedback.ok{color:var(--green)}.feedback.bad{color:#fca5a5}
+.quiz-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+.primary{border:0;background:linear-gradient(135deg,var(--accent2),var(--accent));color:white;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:800}
+.secondary{border:1px solid var(--border);background:var(--panel);color:var(--text);padding:12px 18px;border-radius:12px;cursor:pointer}
+.result{text-align:center;padding:45px}.score{font-size:76px;font-weight:900;margin:10px 0;background:linear-gradient(90deg,var(--accent),#c084fc);-webkit-background-clip:text;color:transparent}
+.result .badge{display:inline-block;padding:9px 15px;border-radius:99px;background:#14253a;border:1px solid var(--border)}
+.footer{text-align:center;padding:30px;color:#71839a;border-top:1px solid var(--border)}
+
+/* Name-entry gate */
+.gate{text-align:center;padding:20px 10px}
+.gate h2{margin-bottom:8px}
+.gate p{max-width:520px;margin:0 auto 26px}
+.gate input{width:100%;max-width:360px;padding:14px 16px;border-radius:12px;border:1px solid var(--border);
+background:#0b1728;color:var(--text);font-size:16px;outline:none}
+.gate input:focus{border-color:var(--accent)}
+.gate .err{color:#fca5a5;font-size:14px;margin-top:10px;min-height:18px}
+.gate-actions{margin-top:22px}
+.sync-note{font-size:13px;color:var(--muted);margin-top:16px}
+
+@media(max-width:720px){.topbar{padding:0 14px}.nav button{display:none}.section{padding:35px 18px}.hero,.quiz-card{padding:26px}.grid{grid-template-columns:1fr}p,li{font-size:15px}.brand .line2{font-size:19px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="line1">Vornqis Research &amp; Insights</span><span class="line2">Day <span>2</span> Training</span></div>
+  <div class="nav">
+    <button id="presentationBtn" class="active" onclick="showMode('presentation')">Presentation</button>
+    <button id="quizBtn" onclick="startQuizFlow()">Knowledge Check</button>
+  </div>
+</header>
+
+<main>
+<section id="presentation" class="section">
+<div class="deck">
+
+<!-- 20 professional presentation slides -->
+<article class="slide active">
+<div class="hero"><div class="kicker">Day 2 Training</div><h1>Types of Studies &<br>Rejection Points</h1>
+<p class="subtitle">A professional learning deck covering B2B, B2C, Healthcare studies, targeting, company sizing, job titles, quality standards and common rejection reasons.</p>
+<div style="margin-top:25px"><span class="pill">Vornqis Research & Insights Training</span> <span class="pill">Day 2</span></div></div>
+</article>
+
+<article class="slide"><div class="hero"><div class="kicker">01 · Study Types</div><h2>What We Cover</h2>
+<div class="grid"><div class="card"><div class="icon">📊</div><h3>B2B Studies</h3><p>Business professionals and decision makers.</p></div>
+<div class="card"><div class="icon">🛒</div><h3>B2C Studies</h3><p>Everyday consumers and category users.</p></div>
+<div class="card"><div class="icon">🏥</div><h3>Healthcare</h3><p>HCPs, patients and caregivers.</p></div>
+<div class="card"><div class="icon">⚠️</div><h3>Quality & Rejection</h3><p>Understand invalid, inconsistent and low-quality responses.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">02 · B2B</div><h2>B2B Studies</h2>
+<p>B2B means <strong>Business to Business</strong>. Respondents are professionals who make or influence decisions at their companies.</p>
+<div class="grid"><div class="card"><h3>IT Decision Makers</h3><p>CIOs, IT Managers and technology decision makers.</p></div><div class="card"><h3>Business Decision Makers</h3><p>CEO, VP, Director and other business leaders.</p></div><div class="card"><h3>SME / Experts</h3><p>Subject-matter specialists such as cybersecurity or HR experts.</p></div><div class="card"><h3>Industry Managers</h3><p>Managers and above across operations, procurement, insurance, construction and more.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">03 · B2C</div><h2>B2C Studies</h2>
+<p>B2C means <strong>Business to Consumer</strong>. These studies target everyday people based on demographics, income, behavior or purchasing activity.</p>
+<div class="grid"><div class="card">👪 <strong>General Population</strong><p>Broad consumer opinions, commonly adults 18+.</p></div>
+<div class="card">💵 <strong>Income Based</strong><p>Household-income targeting for relevant products.</p></div>
+<div class="card">📺 <strong>Behavior Based</strong><p>Streaming users, travelers, shoppers and category users.</p></div>
+<div class="card">🎓 <strong>Parents / Shoppers</strong><p>Specific consumer groups for education, retail and CPG studies.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">04 · Healthcare</div><h2>Healthcare Studies</h2>
+<p>Healthcare research can involve medical professionals, patients and caregivers. Accuracy and eligibility are especially important.</p>
+<div class="grid"><div class="card"><h3>🩺 HCPs</h3><p>Doctors, specialists, nurses, pharmacists, physiotherapists and healthcare administrators.</p></div>
+<div class="card"><h3>🤝 Patients & Caregivers</h3><p>Relevant patient populations and caregivers providing experience-based feedback.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">05 · Workflow</div><h2>Run Every Study Correctly</h2>
+<div class="grid"><div class="card"><b>1 · Read latest updates</b><p>Use current quotas and instructions.</p></div><div class="card"><b>2 · Understand targeting</b><p>Know the required age, role, location and other criteria.</p></div><div class="card"><b>3 · Follow the phases</b><p>Qualification → Main Survey → End Section.</p></div><div class="card"><b>4 · Verify before submit</b><p>Follow the project's approved testing/location procedure.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">06 · Industries</div><h2>Industry & Department Matching</h2>
+<p>The selected industry and department should logically match the role and study requirements.</p>
+<div class="grid"><div class="card"><strong>Industries</strong><p>IT · Healthcare · Automotive · Retail · Manufacturing · Finance · Education · Logistics · Energy · Telecom · Real Estate · Media and more.</p></div>
+<div class="card"><strong>Departments</strong><p>IT · Finance · HR · Legal · Marketing · R&D · Sales · Operations · Procurement · Product · Compliance · Training and more.</p></div></div>
+<p><strong>Rule:</strong> avoid contradictions between job title, department and industry.</p></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">07 · Company Size</div><h2>Employee Size Tiers</h2>
+<table><tr><th>Tier</th><th>Employees</th></tr><tr><td>Micro</td><td>1–10</td></tr><tr><td>Small</td><td>11–50</td></tr><tr><td>Medium</td><td>51–250</td></tr><tr><td>Large</td><td>251–1,000</td></tr><tr><td>Enterprise</td><td>1,001–10,000</td></tr><tr><td>Mega Enterprise</td><td>10,001–50,000</td></tr><tr><td>Global Enterprise</td><td>50,001–100,000</td></tr><tr><td>Ultra Global</td><td>100,001+</td></tr></table></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">08 · Revenue</div><h2>Revenue Tiers</h2>
+<table><tr><th>Tier</th><th>Annual Revenue</th></tr><tr><td>Micro</td><td>Under $1M</td></tr><tr><td>Small</td><td>$1M–$10M</td></tr><tr><td>Medium</td><td>$10M–$100M</td></tr><tr><td>Large</td><td>$100M–$1B</td></tr><tr><td>Enterprise</td><td>$1B–$10B</td></tr><tr><td>Mega Enterprise</td><td>$10B–$50B</td></tr><tr><td>Global Enterprise</td><td>$50B–$100B</td></tr><tr><td>Ultra Global</td><td>$100B+</td></tr></table>
+<p>Employee size and revenue should be logically consistent with the study profile.</p></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">09 · Job Titles</div><h2>Job Title Hierarchy</h2>
+<div class="grid"><div class="card">👑 <h3>C-Suite</h3><p>CEO, COO, CFO, CTO, CMO, CIO, CHRO, CPO.</p></div>
+<div class="card">📊 <h3>Senior Management</h3><p>Senior Manager, Director, VP, General Manager.</p></div>
+<div class="card">📁 <h3>Managerial</h3><p>Supervisor, Team Lead, Manager.</p></div>
+<div class="card">💻 <h3>Individual Contributor</h3><p>Specialist, Analyst, Engineer, Consultant, Architect.</p></div>
+<div class="card">🎓 <h3>Entry Level</h3><p>Intern, Trainee, Associate, Assistant, Graduate Hire.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">10 · Rejections</div><h2>Four Main Rejection Categories</h2>
+<div class="grid"><div class="card">🤖 <h3>Fraudulent Behavior</h3><p>Duplicates, bots, multiple accounts and other invalid activity.</p></div>
+<div class="card">😴 <h3>Quality & Engagement</h3><p>Speeding, straight-lining and contradictions.</p></div>
+<div class="card">💬 <h3>Open-End Issues</h3><p>Gibberish, one-word or irrelevant responses.</p></div>
+<div class="card">📋 <h3>Screening Failures</h3><p>False eligibility, quota mismatch or location inconsistency.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">11 · Fraud</div><h2>Fraudulent Behavior</h2>
+<ul><li><strong>Duplicate responses:</strong> repeated entries can compromise data quality.</li>
+<li><strong>Automated/bot responses:</strong> unnatural automated completion is invalid.</li>
+<li><strong>Survey farming:</strong> unusually high-volume activity can trigger quality controls.</li>
+<li><strong>Location misuse:</strong> misrepresenting geography can invalidate a response.</li></ul>
+<p><strong>Professional standard:</strong> use only legitimate, approved testing procedures and never misrepresent a respondent.</p></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">12 · Quality</div><h2>Quality & Engagement Issues</h2>
+<div class="grid"><div class="card">⚡ <h3>Speeding</h3><p>Completing far faster than the expected survey duration may indicate poor engagement.</p></div>
+<div class="card">➡️ <h3>Straight-Lining</h3><p>Selecting the same rating for every grid item without genuine consideration.</p></div>
+<div class="card">⚠️ <h3>Inconsistent Answers</h3><p>Answers must make logical sense together.</p></div>
+<div class="card">👀 <h3>Attention Checks</h3><p>Read instructions carefully and follow explicit attention-check directions.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">13 · Open Ends</div><h2>Open-Ended Answer Quality</h2>
+<p>Open-ended questions are reviewed for genuine engagement and relevance.</p>
+<div class="grid"><div class="card"><strong>Do</strong><p>Write 1–3 natural, specific sentences and address the actual topic.</p></div>
+<div class="card"><strong>Avoid</strong><p>Gibberish, irrelevant text, one-word answers and repeated copy-paste responses.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">14 · Screening</div><h2>Screening & Advanced Flags</h2>
+<div class="grid"><div class="card">🎭 <h3>False Screening</h3><p>Claiming a role or experience that does not match verification questions.</p></div>
+<div class="card">📍 <h3>Geo / Location Mismatch</h3><p>Stated location and verified location do not agree.</p></div>
+<div class="card">🧠 <h3>Impossible Answers</h3><p>Age, experience and job level should remain logically possible.</p></div>
+<div class="card">🐠 <h3>Red Herring Brand</h3><p>Made-up brands may be used to detect overclaiming familiarity.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">15 · Consistency</div><h2>Consistency Is the Core Rule</h2>
+<p>A high-quality response is internally coherent.</p>
+<div class="grid"><div class="card"><strong>Role ↔ Department</strong><p>IT Manager → Information Technology.</p></div><div class="card"><strong>Employees ↔ Revenue</strong><p>Company size and revenue should fit the same business profile.</p></div><div class="card"><strong>Age ↔ Experience</strong><p>Experience claims must be realistic for the stated age.</p></div><div class="card"><strong>Location ↔ Study</strong><p>Eligibility must align with the study's actual requirements.</p></div></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">16 · Golden Rules</div><h2>Day 2 Golden Rules</h2>
+<ol><li>Know the study type.</li><li>Match company details logically.</li><li>Use the correct job-title level.</li><li>Do not rush; respect the survey's expected duration.</li><li>Write genuine, on-topic open-ended responses.</li><li>Read every question and attention check carefully.</li></ol></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">17 · Practical Example</div><h2>Example: 25 Employees + $3M Revenue</h2>
+<div class="card"><h3>Assessment</h3><p>25 employees fall in the <strong>Small</strong> tier (11–50). $3M annual revenue also falls in the <strong>Small</strong> tier ($1M–$10M).</p>
+<p>Therefore, the two company-size attributes are logically aligned for this example.</p></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">18 · Knowledge Check</div><h2>Ready for the Quiz?</h2>
+<p>25 questions cover study types, targeting, company sizing, job titles, rejection points, open-end quality and consistency.</p>
+<div class="grid"><div class="card"><strong>25 Questions</strong><p>Comprehensive Day 2 check.</p></div><div class="card"><strong>Instant Feedback</strong><p>See whether your selected option is correct.</p></div><div class="card"><strong>Final Result</strong><p>Your score and performance band appear at the end.</p></div><div class="card"><strong>Retry</strong><p>Take the quiz again whenever you want.</p></div></div>
+<div style="margin-top:25px"><button class="primary" onclick="startQuizFlow()">Start Knowledge Check →</button></div></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">19 · Completion</div><h2>Quality. Consistency. Honesty.</h2>
+<p>The goal of training is not simply to finish a survey. It is to understand eligibility, follow the study requirements and produce reliable research data.</p></div></article>
+
+<article class="slide"><div class="hero"><div class="kicker">20 · End</div><h2>Day 2 Complete 🎉</h2>
+<p>Apply the principles from this training to every study: understand the target, stay consistent, read carefully and maintain genuine response quality.</p>
+<div style="margin-top:25px"><button class="primary" onclick="startQuizFlow()">Take the Quiz →</button></div></div></article>
+
+<div class="controls">
+<button class="secondary" onclick="prevSlide()">← Prev</button>
+<div class="progress"><i id="slideProgress"></i></div>
+<span id="slideCount" class="pill">1 / 20</span>
+<button class="primary" onclick="nextSlide()">Next →</button>
+</div>
+</div>
+</section>
+
+<section id="quiz" class="section" style="display:none">
+<div class="quiz-wrap">
+<div id="quizCard" class="quiz-card"></div>
+</div>
+</section>
+</main>
+<footer class="footer">Vornqis Research & Insights · Day 2 Training · Professional Learning & Knowledge Check</footer>
+
+<script>
+/* ============ CONFIG ============ */
+/* Paste your Google Apps Script Web App URL here (see setup instructions given separately). */
+const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+const questions=[
+["What does B2B stand for and who are the respondents?",["Business to Buyer — regular shoppers","Business to Business — professionals who make decisions at their companies","Brand to Brand — companies surveying each other","Buyer to Business — consumers buying from businesses"],1],
+["What does B2C stand for and who does it target?",["Business to Consumer — regular everyday people","Brand to Consumer — luxury brand customers only","Business to Corporation — large business clients","Buyer to Consumer — wholesalers"],0],
+["Which group is typically targeted in Healthcare studies?",["Only C-suite executives of pharmaceutical companies","HCPs like doctors and nurses AND patients or caregivers","General consumers who shop at pharmacies","B2B IT decision makers in the health sector"],1],
+["What does ITDM stand for in B2B studies?",["International Trade Decision Manager","IT Decision Maker — someone who chooses technology at their company","IT Department Manager — anyone working in IT","Industry and Technology Domain Member"],1],
+["Which job title belongs to the C-Suite level?",["Marketing Specialist","Team Lead","Chief Financial Officer (CFO)","HR Coordinator"],2],
+["A B2B survey asks your industry. The company makes cars. Which industry do you select?",["Retail","Automotive","Logistics and Supply Chain","Financial Services"],1],
+["You are simulating an IT Manager. Which department do you select?",["Marketing / Advertising","Information Technology","Human Resources","Procurement and Sourcing"],1],
+["How many employee size tiers are there in B2B company sizing?",["5","6","7","8"],3],
+["A company has 500 employees. Which employee size tier does it belong to?",["Medium (51–250)","Large (251–1,000)","Enterprise (1,001–10,000)","Small (11–50)"],1],
+["Which of these revenue-employee combinations is IMPOSSIBLE?",["25 employees + $3M revenue","500 employees + $200M revenue","5 employees + $500K revenue","5 employees + $10B revenue"],3],
+["Which of these is a fraudulent behavior rejection?",["Writing a specific open-end answer","Completing a survey at a normal pace","Duplicate entries","Selecting a different rating in a grid"],2],
+["After completing a survey, you realize the approved testing/location setting was wrong. What does this mean?",["Nothing — the survey is still valid","The response may be rejected due to a location mismatch","You just need to change the setting afterward","Only B2C surveys require correct settings"],1],
+["What is a Survey Farmer rejection?",["Someone who works in agriculture filling surveys","One account completing an unnaturally high number of surveys per day","A respondent who only completes farming-related surveys","Someone who takes too long to complete each survey"],1],
+["What is straight-lining and why does it cause rejection?",["Answering questions too quickly without reading","Selecting the same answer for every question in a rating grid","Writing the same OE answer in multiple surveys","Copying another person's survey answers"],1],
+["A respondent writes 'asdfgh' in an open-ended field. What type of rejection is this?",["Fraudulent behavior — duplicate entry","Screening failure — wrong location","OE issue — gibberish answer","Quality issue — speeding"],2],
+["What is a Red Herring brand trap in a survey?",["A well-known brand included to test product knowledge","A made-up brand included to catch respondents who falsely claim to know it","A competing brand name used to measure brand loyalty","A brand from a different country used in international surveys"],1],
+["A respondent says they live in New York but their verified location shows a different country. What type of rejection?",["OE issue — off-topic answer","Quality issue — straight-lining","Screening failure — geo/location mismatch","Fraudulent behavior — bot response"],2],
+["A survey LOI is 15 minutes but the respondent completes it in 4 minutes. What happens?",["Nothing — faster is better","The respondent is flagged for speeding — a quality rejection","The respondent receives a bonus","The survey automatically extends the LOI"],1],
+["A respondent claims to be a doctor but fails a basic medical knowledge check. What type of rejection?",["Quality issue — straight-lining","OE issue — gibberish answer","Screening failure — false screening","Fraudulent behavior — duplicate entry"],2],
+["What are the THREE survey phases mentioned in the Day 2 training?",["Introduction, Core Questions, Conclusion","Qualification, Main Survey, End Section (Demographics)","Screening, Targeting, Classification","Opening, Body, Closing"],1],
+["What is the minimum recommended length for an open-ended answer?",["Just one word if the question is simple","At least 1–2 genuine sentences","Only a few letters","Exactly 50 words"],1],
+["What does Status 10 in the training mean?",["Survey completed successfully","Respondent did not qualify","Security termination — triggered by speeding or suspicious behavior","Quota for that group is full"],2],
+["A survey says select Option 4 for this question. You ignore it and answer normally. What happens?",["Nothing — these instructions do not matter","You are flagged for failing an attention check","The survey automatically selects Option 4","The client gives you a second chance"],1],
+["You are simulating a food company with 25 employees and $3M revenue. Is this consistent?",["No — food companies always need more than 100 employees","Yes — 25 employees (Small) and $3M revenue (Small) are logically consistent","No — $3M revenue is too high for 25 employees","Yes but only if the industry is retail"],1],
+["What is the key difference between B2B and B2C surveys?",["B2B surveys are always longer than B2C surveys","B2B targets business professionals while B2C targets everyday consumers","B2C surveys never include OE questions","B2B surveys do not require any study-specific checks"],1]
+];
+
+let slide=0, qi=0, score=0, answers=Array(questions.length).fill(null);
+let studentName="", attemptNumber=1, resultSubmitted=false;
+const slides=[...document.querySelectorAll(".slide")];
+
+function renderSlide(){
+ slides.forEach((s,i)=>s.classList.toggle("active",i===slide));
+ document.getElementById("slideCount").textContent=`${slide+1} / ${slides.length}`;
+ document.getElementById("slideProgress").style.width=((slide+1)/slides.length*100)+"%";
+}
+function nextSlide(){if(slide<slides.length-1){slide++;renderSlide()}}
+function prevSlide(){if(slide>0){slide--;renderSlide()}}
+
+function showMode(mode){
+ document.getElementById("presentation").style.display=mode==="presentation"?"flex":"none";
+ document.getElementById("quiz").style.display=mode==="quiz"?"flex":"none";
+ document.getElementById("presentationBtn").classList.toggle("active",mode==="presentation");
+ document.getElementById("quizBtn").classList.toggle("active",mode==="quiz");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* Reads previous attempt counts from this browser's storage so a repeat visit
+   by the same name is recorded as Attempt 2, Attempt 3, etc. */
+function getStoredAttempts(){
+ try{ return JSON.parse(localStorage.getItem("Vornqis_quiz_attempts")||"{}"); }
+ catch(e){ return {}; }
+}
+function saveStoredAttempts(obj){
+ try{ localStorage.setItem("Vornqis_quiz_attempts", JSON.stringify(obj)); }catch(e){}
+}
+
+/* Entry point: always ask for the respondent's name before starting/retaking the quiz */
+function startQuizFlow(){
+ showMode('quiz');
+ qi=0; score=0; answers=Array(questions.length).fill(null); resultSubmitted=false;
+ renderNameGate();
+}
+
+function renderNameGate(){
+ document.getElementById("quizBtn").classList.add("active");
+ document.getElementById("quizCard").innerHTML = `
+  <div class="gate">
+    <div class="kicker">Knowledge Check</div>
+    <h2>Enter Your Name to Begin</h2>
+    <p>Your name is used to record your score for this attempt.</p>
+    <input id="nameInput" type="text" placeholder="Full name" autocomplete="off" />
+    <div class="err" id="nameErr"></div>
+    <div class="gate-actions">
+      <button class="primary" onclick="confirmName()">Start Quiz →</button>
+    </div>
+  </div>`;
+ const inp=document.getElementById("nameInput");
+ inp.focus();
+ inp.addEventListener("keydown", e=>{ if(e.key==="Enter") confirmName(); });
+}
+
+function confirmName(){
+ const val=document.getElementById("nameInput").value.trim();
+ if(!val){ document.getElementById("nameErr").textContent="Please enter your name to continue."; return; }
+ studentName = val;
+ const attempts = getStoredAttempts();
+ attemptNumber = (attempts[studentName] || 0) + 1;
+ renderQuestion();
+}
+
+function renderQuestion(){
+ if(qi>=questions.length){renderResult();return}
+ const [q,opts,correct]=questions[qi];
+ const selected=answers[qi];
+ let html=`<div class="qtop"><div class="qnum">QUESTION ${qi+1} OF ${questions.length}</div><span class="pill">${studentName} · Attempt ${attemptNumber} · Score: ${score}/${questions.length}</span></div>
+ <h2 style="margin-top:20px">${q}</h2><div class="options">`;
+ opts.forEach((o,i)=>{
+   let cls="";
+   if(selected!==null){if(i===correct)cls="correct";else if(i===selected)cls="wrong"}
+   html+=`<button class="option ${cls}" onclick="selectAnswer(${i})"><strong>${String.fromCharCode(65+i)}.</strong> ${o}</button>`;
+ });
+ html+=`</div>`;
+ if(selected!==null){
+   const ok=selected===correct;
+   html+=`<div class="feedback ${ok?"ok":"bad"}">${ok?"✓ Correct!":"✗ Incorrect."} ${ok?"":"Correct answer: "+String.fromCharCode(65+correct)+". "+opts[correct]}</div>`;
+ }
+ html+=`<div class="quiz-actions">${qi>0?'<button class="secondary" onclick="prevQuestion()">← Previous</button>':''}
+ ${selected!==null?`<button class="primary" onclick="nextQuestion()">${qi===questions.length-1?"View Result":"Next Question →"}</button>`:""}</div>`;
+ document.getElementById("quizCard").innerHTML=html;
+}
+function selectAnswer(i){
+ if(answers[qi]!==null)return;
+ answers[qi]=i;
+ if(i===questions[qi][2])score++;
+ renderQuestion();
+}
+function nextQuestion(){if(qi<questions.length-1){qi++;renderQuestion()}else renderResult()}
+function prevQuestion(){if(qi>0){qi--;renderQuestion()}}
+
+function renderResult(){
+ const pct=Math.round(score/questions.length*100);
+ let band=pct>=90?"Excellent — Day 2 Mastery":pct>=75?"Strong — Keep Practising":pct>=60?"Good Start — Review Key Rules":"Needs Review — Retake the Training";
+
+ if(!resultSubmitted){
+   resultSubmitted = true;
+   const attempts = getStoredAttempts();
+   attempts[studentName] = attemptNumber;
+   saveStoredAttempts(attempts);
+   sendScoreToSheet({
+     name: studentName,
+     attempt: attemptNumber,
+     score: score,
+     total: questions.length,
+     percentage: pct,
+     timestamp: new Date().toISOString()
+   });
+ }
+
+ document.getElementById("quizCard").innerHTML=`<div class="result">
+ <div class="kicker">Quiz Complete</div><h2>${studentName}'s Result — Attempt ${attemptNumber}</h2>
+ <div class="score">${score}/${questions.length}</div><div class="badge">${pct}% · ${band}</div>
+ <p style="margin:22px auto;max-width:650px">Review the questions you missed, revisit the presentation, and retake the quiz to improve your understanding.</p>
+ <button class="primary" onclick="startQuizFlow()">↻ Retake Quiz</button>
+ <button class="secondary" style="margin-left:8px" onclick="showMode('presentation')">← Review Presentation</button>
+ <p class="sync-note">Your score has been recorded${GOOGLE_SCRIPT_URL.startsWith('http')?" and sent for tracking.":" locally. Ask your trainer to connect a Google Sheet to also record this online."}</p>
+ </div>`;
+}
+
+/* Sends the attempt result to a Google Sheet via a Google Apps Script Web App.
+   Uses no-cors + text/plain so it works without extra CORS configuration on the Apps Script side.
+   This call only works when the page is opened as a normal file/hosted page — it will NOT
+   work inside Claude's published-artifact preview, which blocks requests to outside domains. */
+function sendScoreToSheet(payload){
+ if(!GOOGLE_SCRIPT_URL || !GOOGLE_SCRIPT_URL.startsWith("http")) return;
+ fetch(GOOGLE_SCRIPT_URL, {
+   method: "POST",
+   mode: "no-cors",
+   headers: { "Content-Type": "text/plain;charset=utf-8" },
+   body: JSON.stringify(payload)
+ }).catch(()=>{ /* fails silently if offline or URL not reachable */ });
+}
+
+document.addEventListener("keydown",e=>{
+ if(document.getElementById("presentation").style.display!=="none"){
+  if(e.key==="ArrowRight")nextSlide(); if(e.key==="ArrowLeft")prevSlide();
+ }
+});
+renderSlide();
+</script>
+</body>
+</html>
